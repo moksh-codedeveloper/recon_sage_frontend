@@ -1,18 +1,44 @@
 "use client";
-import React from "react";
-import { Button } from "./ui/button";
+
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ModeToggle } from "./ThemeTogle";
+import { useEffect, useState } from "react";
+
 export default function Navbar() {
-    return (
-        <>
-            <div className="p-3 m-5 h-10 flex justify-center items-center sticky">
-                <div className="bg-cyan-200 rounded-3xl p-3 border-cyan-300 mt-6">
-                    <Button className="m-3 rounded-3xl"><Link href={"/"}>Home</Link></Button>
-                    <Button className="m-3 rounded-3xl"><Link href={"/contact"}>Contact us</Link></Button>
-                    <Button className="m-3 rounded-3xl"><Link href={"/project"}>About Project</Link></Button>
-                    <Button className="m-3 rounded-3xl"><Link href={"/premiums"}>Premium section</Link></Button>
-                </div>
-            </div >
-        </>
-    );
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return (
+    <nav className="sticky top-4 z-50 flex justify-center">
+      <div className="flex flex-wrap items-center gap-3 rounded-3xl border bg-background/80 px-6 py-3 backdrop-blur-md shadow-md">
+        <Link href="/">
+          <Button variant="ghost">Home</Button>
+        </Link>
+
+        <Link href="/project">
+          <Button variant="ghost">About</Button>
+        </Link>
+
+        <Link href="/docs">
+          <Button variant="ghost">Docs</Button>
+        </Link>
+
+        <Link href="/contact">
+          <Button variant="ghost">Contact</Button>
+        </Link>
+
+        <Link href="/premiums">
+          <Button>Premium</Button>
+        </Link>
+
+        <ModeToggle />
+      </div>
+    </nav>
+  );
 }
